@@ -1,0 +1,27 @@
+# Small example playbook written in YAML
+#
+# Starts with 3 dashes
+
+---
+# Example targetting host_a
+
+- hosts:
+  - host_a
+
+  # Gathers state of machine before running
+  gather_facts:
+    - yes
+
+  # give root permissions
+  become:
+    - true
+
+  task:
+    - name: Installing MySQl
+      apt:
+        pkg:
+          - mysql-server
+        state:
+          - present
+        update_cache:
+          - yes
