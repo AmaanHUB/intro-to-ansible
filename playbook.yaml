@@ -5,16 +5,13 @@
 ---
 # Example targetting host_a
 - name: MySQL installation
-- hosts:
-  - host_a
+- hosts: host_a
 
   # Gathers state of machine before running
-  gather_facts:
-    - yes
+  gather_facts: yes
 
   # give root permissions
-  become:
-    - true
+  become: true
 
   tasks:
     - name: Installing MySQl
