@@ -4,7 +4,8 @@
 
 ---
 # Example targetting host_a
-
+- name:
+  - MySQL installation
 - hosts:
   - host_a
 
@@ -16,7 +17,7 @@
   become:
     - true
 
-  task:
+  tasks:
     - name: Installing MySQl
       apt:
         pkg:
