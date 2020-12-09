@@ -10,7 +10,7 @@ source ~/.bashrc
 sudo -i
 hostnamectl set-hostname ansible-controller
 exit
-tset
+# neee something to reset the terminal in a way to show the new hostname here maybe
 
 # Install Ansible
 sudo apt update -y

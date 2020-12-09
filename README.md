@@ -25,8 +25,8 @@ Setting up a controller machine in AWS. In `ansible-setup/provision.sh` is a sma
 * Here one specifies how one connects to the machines one is trying to control, with the specific key file and the ip address etc
 	* in `/etc/ansible/hosts`
 ```
-[host_a]                                            │
-172.31.45.97    ansible_ssh_private_key_file=/home/u│buntu/.ssh/eng74-amaan-aws.pem
+[host_a]
+172.31.45.97    ansible_ssh_private_key_file=/home/ubuntu/.ssh/eng74-amaan-aws.pem
 ```
 
 * Make sure that the security group (in AWS) allows on port 22 from the `ansible-controller` IP address
@@ -36,3 +36,19 @@ Setting up a controller machine in AWS. In `ansible-setup/provision.sh` is a sma
 ansible host_name -m ping
 ```
 
+## Ad hoc Commands
+
+* Can call bash commands from an ansible command
+	* The command must be within quotes
+```
+ansible host_name -a "command"
+```
+* Instead of calling `sudo` in the command, one can use `--become` at the end to 'become' root
+```
+ansible host_name -a "command" --become
+```
+* Updating the ansible way (using the `apt` module)
+```
+# can just use `apt` instead of `ansible.builtin.apt`
+ansible host_name -m ansible.builtin.apt -a "upgrade=yes update_cache=yes" --become
+```
