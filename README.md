@@ -48,6 +48,7 @@ ansible host_name -a "command"
 ansible host_name -a "command" --become
 ```
 * Updating the ansible way (using the `apt` module)
+	* Note `--become` is needed since this is operation needs root permissions
 ```
 # can just use `apt` instead of `ansible.builtin.apt`
 ansible host_name -m ansible.builtin.apt -a "upgrade=yes update_cache=yes" --become
