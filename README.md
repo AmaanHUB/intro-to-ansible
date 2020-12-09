@@ -6,7 +6,7 @@
 * Platform agnostic
 	* Ansible provides an abstraction layer so you should be able to run the code in any environment in any OS
 
-## Playbooks
+## Introducution To Playbooks
 
 * Playbooks contain all the instructions that Ansible uses to hold the 'instructions' that it will run on the machines
 	* Is basically a provision file
@@ -14,3 +14,25 @@
 	* contains the IP
 	* username and ssh private key can be configured
 * Testing can be built into the playbooks
+
+## Setting It Up
+
+Setting up a controller machine in AWS. In `ansible-setup/provision.sh` is a small provision script that would automatically install ansible on the AWS EC2 instance.
+
+
+## Hosts file
+
+* Here one specifies how one connects to the machines one is trying to control, with the specific key file and the ip address etc
+	* in `/etc/ansible/hosts`
+```
+[host_a]                                            │
+172.31.45.97    ansible_ssh_private_key_file=/home/u│buntu/.ssh/eng74-amaan-aws.pem
+```
+
+* Make sure that the security group (in AWS) allows on port 22 from the `ansible-controller` IP address
+* Can check if this works by using an ansible `ping` module. This can be done from the command line as well as from a playbook (which shall be done later)
+```
+# host_name can be 'all' to say ping every specified machine
+ansible host_name -m ping
+```
+
