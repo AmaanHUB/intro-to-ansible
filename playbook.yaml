@@ -4,8 +4,7 @@
 
 ---
 # Example targetting host_a
-- name:
-  - MySQL installation
+- name: MySQL installation
 - hosts:
   - host_a
 
