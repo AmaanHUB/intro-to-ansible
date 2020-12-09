@@ -6,14 +6,6 @@
 * Platform agnostic
 	* Ansible provides an abstraction layer so you should be able to run the code in any environment in any OS
 
-## Introducution To Playbooks
-
-* Playbooks contain all the instructions that Ansible uses to hold the 'instructions' that it will run on the machines
-	* Is basically a provision file
-* `inventory` file contains all the `hosts`, which are the machines that the playbook will run on
-	* contains the IP
-	* username and ssh private key can be configured
-* Testing can be built into the playbooks
 
 ## Setting It Up
 
@@ -53,3 +45,14 @@ ansible host_name -a "command" --become
 # can just use `apt` instead of `ansible.builtin.apt`
 ansible host_name -m ansible.builtin.apt -a "upgrade=yes update_cache=yes" --become
 ```
+
+## Introducution To Playbooks
+
+* Playbooks contain all the instructions that Ansible uses to hold the 'instructions' that it will run on the machines
+	* Is basically a provision file
+* `inventory` file contains all the `hosts`, which are the machines that the playbook will run on
+	* contains the IP
+	* username and ssh private key can be configured
+* Testing can be built into the playbooks
+
+//TODO, add explanation of playbook
