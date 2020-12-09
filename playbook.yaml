@@ -5,7 +5,7 @@
 ---
 # Example targetting host_a
 - name: MySQL installation
-- hosts: host_a
+  hosts: host_a
 
   # Gathers state of machine before running
   gather_facts: yes
