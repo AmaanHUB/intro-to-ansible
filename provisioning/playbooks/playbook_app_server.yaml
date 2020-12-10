@@ -15,18 +15,18 @@
         update_cache: true
         cache_valid_time: 3600
 
-    - name: Install nginx and nodejs
+    - name: Install nginx, nodejs, and npm
       apt:
         pkg:
           - nginx
           - nodejs
+          - npm
         state: latest
 
     - name: Install pm2
       npm:
         name: pm2
         global: yes
-        state: latest
 
     - name: Start nginx
       service:
