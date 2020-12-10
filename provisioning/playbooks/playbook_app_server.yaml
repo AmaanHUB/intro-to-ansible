@@ -49,9 +49,9 @@
         src: ~/intro-to-ansible/app
         dest: /home/ubuntu/
 
-    - name: Install app
+    - name: Install app using npm install
       npm:
-        path: /home/ubuntu/app/package.json
+        path: /home/ubuntu/app/
         state: latest
 
     - name: Delete existing pm2 service
