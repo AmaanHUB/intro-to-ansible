@@ -37,16 +37,21 @@
     - name: Copy template reverse_proxy
       copy:
         src: ~/intro-to-ansible/provisioning/templates/nginx/proxy_config.conf
-        dest: /etc/nginx/sites-available/
+        dest: /etc/nginx/sites-available/default
 
     - name: Restart nginx
       service:
         name: nginx
         state: restarted
 
+    - name: Copy app
+      copy:
+        src: ~/intro-to-ansible/provisioning/app/
+        dest: /home/ubuntu/
+
     - name: Install app
       npm:
-        path: ~/intro-to-ansible/app/package.json
+        path: /home/ubuntu/app/package.json
         state: latest
 
     - name: Delete existing pm2 service
@@ -54,5 +59,5 @@
       ignore_errors: True
 
     - name: Start the app in pm2
-      command: "pm2 start /home/ubuntu/intro-to-ansible/app/app.js --update-env"
+      command: "pm2 start /home/ubuntu/app/app.js --update-env"
 
