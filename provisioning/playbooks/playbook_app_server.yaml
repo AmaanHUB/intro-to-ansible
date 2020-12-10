@@ -53,8 +53,7 @@
 
     - name: Install app using npm install
       npm:
-        path: /home/ubuntu/app/
-        state: latest
+        path: /home/ubuntu/app
 
     - name: Delete existing pm2 service
       command: "pm2 delete app"
