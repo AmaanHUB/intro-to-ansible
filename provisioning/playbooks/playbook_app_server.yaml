@@ -6,19 +6,20 @@
   gather_facts: yes
 
   # give root permissions
-  become: true
+  become: yes
 
   tasks:
     - name: Update and upgrade installation
       apt:
-        upgrade: true
-        update_cache: true
+        upgrade: yes
+        update_cache: yes
         cache_valid_time: 3600
 
     - name: Install nginx, nodejs, and npm
       apt:
         pkg:
           - nginx
+          - git
           - nodejs
           - npm
         state: latest

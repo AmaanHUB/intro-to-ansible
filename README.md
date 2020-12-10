@@ -55,4 +55,35 @@ ansible host_name -m ansible.builtin.apt -a "upgrade=yes update_cache=yes" --bec
 	* username and ssh private key can be configured
 * Testing can be built into the playbooks
 
-//TODO, add explanation of playbook
+### Writing A Playbooks
+
+* Structure:
+* Running it:
+```
+ansible-playbook playbook.yaml
+```
+* Writing a task:
+	* Install packages
+```yaml
+# can install multiple packages with `pkg`
+    - name: Install packages
+      apt:
+        pkg:
+          - package_1
+          - package_2
+          - package_3
+          - package_4
+        state: present
+```
+		* NPM packages
+```yaml
+    - name: Install pm2
+      npm:
+        name: pm2
+        global: yes
+```
+	* Create/remove file
+	* Copying in files and directories
+	* Symbolic links
+	* How to run shell commands
+
