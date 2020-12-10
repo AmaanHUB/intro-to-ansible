@@ -38,7 +38,11 @@
       copy:
         src: ~/intro-to-ansible/provisioning/templates/nginx/proxy_config.conf
         dest: /etc/nginx/sites-available/
-      notify: restart
+
+    - name: Restart nginx
+      service:
+        name: nginx
+        state: restarted
 
     - name: Install app
       npm:
