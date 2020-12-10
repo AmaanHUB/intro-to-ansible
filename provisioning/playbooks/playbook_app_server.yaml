@@ -54,14 +54,15 @@
 
     - name: Install app using npm install
       npm:
-        path: /home/ubuntu/app
+        path: /home/ubuntu/app/
+      become: yes
 
     - name: Delete existing pm2 service
       command: "pm2 delete app"
       ignore_errors: True
-      become_user: ubuntu
+      become: yes
 
     - name: Start the app in pm2
       command: "pm2 start /home/ubuntu/app/app.js --update-env"
-      become_user: ubuntu
+      become: yes
 
