@@ -1,7 +1,6 @@
 ---
 
-- name: AppServer Installation
-  hosts: app_server
+- hosts: app_server
 
   # Gathers state of machine before running
   gather_facts: yes
