@@ -49,6 +49,12 @@
         src: ~/intro-to-ansible/app
         dest: /home/ubuntu/
 
+    - name: Change app file permissions
+      file:
+        path: /home/ubuntu/app/
+        owner: ubuntu
+        group: ubuntu
+
     - name: Install app using npm install
       npm:
         path: /home/ubuntu/app/
