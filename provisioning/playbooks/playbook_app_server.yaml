@@ -46,7 +46,7 @@
 
     - name: Copy app
       copy:
-        src: ~/intro-to-ansible/provisioning/app
+        src: ~/intro-to-ansible/app
         dest: /home/ubuntu/
 
     - name: Install app
