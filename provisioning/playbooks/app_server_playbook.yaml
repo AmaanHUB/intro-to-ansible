@@ -1,0 +1,55 @@
+---
+
+- name: AppServer Installation
+  hosts: app_server
+
+  # Gathers state of machine before running
+  gather_facts: yes
+
+  # give root permissions
+  become: true
+
+  tasks:
+    - name: Update and upgrade installation
+      apt:
+        upgrade: yes
+        update_cache: yes
+        cache_valid_time: 3600
+
+    - name: Install nginx and nodejs
+      apt:
+        pkg:
+          - nginx
+          - nodejs
+        state: latest
+
+    - name: Install pm2
+      npm:
+        name: pm2
+        global: yes
+        state: latest
+
+    - name: Start nginx
+      service:
+        name: nginx
+        state: started
+        enabled: yes
+
+    - name: Copy template reverse_proxy
+      template:
+        src: templates/nginx/proxy_config.conf
+        dest: /etc/nginx/sites-available/
+      notify: restart
+
+    - name: Install app
+      npm:
+        path: ~/intro-to-ansible/app/package.json
+        state: latest
+
+    - name: Delete existing pm2 service
+      command: "pm2 delete app"
+      ignore_errors: True
+
+    - name: Start the app in pm2
+      command: "pm2 start ~/intro-to-ansible/app/app.js --update-env"
+
