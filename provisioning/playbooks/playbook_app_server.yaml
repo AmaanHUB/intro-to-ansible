@@ -11,8 +11,8 @@
   tasks:
     - name: Update and upgrade installation
       apt:
-        upgrade: yes
-        update_cache: yes
+        upgrade: true
+        update_cache: true
         cache_valid_time: 3600
 
     - name: Install nginx and nodejs
