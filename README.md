@@ -126,7 +126,6 @@ server {
 		state: link
 
 ```
-* How to run shell commands
 
 *  Running services can be done with the `service` module or a handler
 ```yaml
@@ -148,8 +147,15 @@ server {
 		  service:
 		  	name: nginx
 			state: restarted
+# N.B. Handlers can be after the task
 ```
-* N.B. Handlers can be after the task
 
-* Templates
 * Shell commands
+```yaml
+# Uses the `shell` module e.g.
+	- name: Show what is in directory
+	  shell:
+	  	chdir: ~/.config/
+		cmd: ls -a
+```
+* Templates
