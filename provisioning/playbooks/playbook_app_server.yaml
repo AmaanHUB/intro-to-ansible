@@ -35,8 +35,8 @@
         enabled: yes
 
     - name: Copy template reverse_proxy
-      template:
-        src: templates/nginx/proxy_config.conf
+      copy:
+        src: ~/intro-to-ansible/provisioning/templates/nginx/proxy_config.conf
         dest: /etc/nginx/sites-available/
       notify: restart
 
