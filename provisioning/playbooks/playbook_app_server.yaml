@@ -54,5 +54,5 @@
       ignore_errors: True
 
     - name: Start the app in pm2
-      command: "pm2 start ~/intro-to-ansible/app/app.js --update-env"
+      command: "pm2 start /home/ubuntu/intro-to-ansible/app/app.js --update-env"
 
