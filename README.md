@@ -62,8 +62,7 @@ ansible host_name -m ansible.builtin.apt -a "upgrade=yes update_cache=yes" --bec
 ```
 ansible-playbook playbook.yaml
 ```
-* Writing a task:
-	* Install packages
+* Install packages
 ```yaml
 # can install multiple packages with `pkg`
     - name: Install packages
@@ -75,15 +74,82 @@ ansible-playbook playbook.yaml
           - package_4
         state: present
 ```
-		* NPM packages
+* NPM package installation
 ```yaml
     - name: Install pm2
       npm:
         name: pm2
         global: yes
 ```
-	* Create/remove file
-	* Copying in files and directories
-	* Symbolic links
-	* How to run shell commands
+* Create/remove file
+```yaml
+#  remove nginx default file
+	- name: Remove nginx default file
+	  file:
+	    path: /etc/nginx/sites-enabled/default
+  	    state: absent
 
+# create a file
+	- name: Create a file in sites-available
+	  file:
+	    path: /etc/sites-available/reverse_proxy.conf
+		state: touch
+		mode: '755'
+
+# write into a file
+	- name: Write into a file
+	  blockinfile:
+	    path: /etc/nginx/sites-available/reverse_proxy.conf
+		block: |
+server {
+
+	listen 80;
+
+	location / {
+
+		proxy_pass http://127.0.0.1:3000;
+		proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+
+	}
+
+}
+
+# symlink
+	- name: create sym link for sites-enabled and sites-available
+	  file:
+	    path: /etc/nginx/sites-available/reverse_proxy.conf
+		dest: /etc/nginx/sites-enabled/
+		state: link
+
+```
+* How to run shell commands
+
+*  Running services can be done with the `service` module or a handler
+```yaml
+	- name: service usage
+	  service:
+	    name: nginx
+		state: started
+
+	- name: some task
+	  file:
+	    path: /etc/nginx/sites-available/reverse_proxy.conf
+		dest: /etc/nginx/sites-enabled/
+		state: link
+	  notify:
+	  	- Restart nginx
+
+	handlers:
+		- name: Restart nginx
+		  service:
+		  	name: nginx
+			state: restarted
+```
+* N.B. Handlers can be after the task
+
+* Templates
+* Shell commands

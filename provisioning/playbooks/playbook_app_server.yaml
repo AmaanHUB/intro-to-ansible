@@ -21,6 +21,7 @@
           - nginx
           - git
           - nodejs
+          - npm
         state: latest
 
     - name: Install pm2
