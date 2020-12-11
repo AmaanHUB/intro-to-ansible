@@ -56,9 +56,9 @@
         owner: ubuntu
         group: ubuntu
 
-    - name: Print DB_HOST variable
-      debug:
-        msg: "DB_HOST is {{ DB_HOST }}"
+          #     - name: Print DB_HOST variable
+          #       debug:
+          #         msg: "DB_HOST is {{ DB_HOST }}"
 
           # This block will set the DB_HOST
     - name: set db host as global variable
