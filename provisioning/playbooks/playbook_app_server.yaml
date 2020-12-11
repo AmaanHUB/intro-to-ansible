@@ -84,5 +84,6 @@
       shell: |
         cd /home/ubuntu/app/
         pm2 start /home/ubuntu/app/app.js --update-env
+        pm2 restart /home/ubuntu/app/app.js --update-env
       become_user: root
 
