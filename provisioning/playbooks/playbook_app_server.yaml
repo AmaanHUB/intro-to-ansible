@@ -88,10 +88,10 @@
         chdir: "{{ app_dir }}"
       environment:
         DB_HOST: "{{ DB_HOST }}"
-          #       become_user: root
+      become_user: root
 
     - name: Seed the database
       shell:
         cmd: nodejs seeds/seed.js
         chdir: "{{ app_dir }}"
-          #       become_user: root
+      become_user: root
