@@ -83,7 +83,9 @@
       # can change this to the `shell` module
       shell: |
         cd /home/ubuntu/app/
+
         pm2 start /home/ubuntu/app/app.js --update-env
-        pm2 restart /home/ubuntu/app/app.js --update-env
+
+        pm2 restart app --update-env
       become_user: root
 
