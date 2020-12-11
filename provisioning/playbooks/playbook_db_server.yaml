@@ -1,0 +1,13 @@
+---
+
+- name: Setting up the MongoDB instance
+  hosts: db_server
+
+  # Gathers state of machine before running
+  gather_facts: yes
+
+  # give root permissions
+  become: yes
+
+  tasks:
+
