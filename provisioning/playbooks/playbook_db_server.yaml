@@ -1,35 +1,40 @@
 ---
 
-- name: Setting up the MongoDB instance
+- name: setting up the mongodb instance
   hosts: db_server
 
-  # Gathers state of machine before running
+  # gathers state of machine before running
   gather_facts: yes
 
   # give root permissions
   become: yes
 
   tasks:
-    - name: Update and upgrade installation
+    - name: update and upgrade installation
       apt:
         upgrade: "yes"
         update_cache: yes
         cache_valid_time: 3600
 
 
-    - name: Install version of MongoDB in the Ubuntu default repositories
+    - name: install version of mongodb in the ubuntu default repositories
       apt:
         pkg:
           mongodb-org
         state: present
 
-    - name: Change MongoDB to listen on all ports
+    - name: change mongodb to listen on all ports
       # could use the `replace` module here instead
       shell: sudo sed -i 's/127.0.0.1/0.0.0.0/' /etc/mongod.conf
       notify: restart_db
 
-  handlers:
-    - name: restart_db
+    - name: Restart mongodb manually
       service:
         name: mongodb
         state: restarted
+
+          #   handlers:
+          #     - name: restart_db
+          #       service:
+          #         name: mongodb
+          #         state: restarted
