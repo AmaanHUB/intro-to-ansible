@@ -83,12 +83,20 @@
     - name: Start the app in pm2
       # can change this to the `shell` module
       shell: |
-        cd {{ app_dir }}
-
         pm2 start app.js --update-env
+      args:
+        chdir: {{ app_dir }}
+      become_user: root
 
-        nodejs seeds/seed.js
+    - name: Seed the database
+      shell:
+        cmd: nodejs seeds/seed.js
+        chdir: {{ app_dir }}
+      become_user: root
 
-        pm2 restart app --update-env
+    - name: Restart the app to force POSTS to work
+      shell:
+        cmd: pm2 restart app --update-env
+        chdir: {{ app_dir }}
       become_user: root
 
