@@ -163,3 +163,4 @@ server {
 	  command: "ls -a"
 ```
 * Templates
+//TODO FIX TEMPLATES AND ENVIRONMENT VARIABLES (AND VARIABLES) SECTION, has gone missing

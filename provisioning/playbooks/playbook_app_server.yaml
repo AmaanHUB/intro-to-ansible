@@ -1,6 +1,9 @@
 ---
 
-- hosts: app_server
+- name: Setting Up The App
+  hosts: app_server
+  environment:
+    DB_HOST: {{ 172.31.32.102 }}
 
   # Gathers state of machine before running
   gather_facts: yes
@@ -51,6 +54,16 @@
         dest: /home/ubuntu/
         owner: ubuntu
         group: ubuntu
+
+            # This block will set the DB_HOST
+    - name: set db host as global variable
+      become: true
+      shell: |
+        export DB_HOST={{ DB_HOST }}
+        sed -i '/export DB_HOST=/d' .bashrc
+        printf '\nexport DB_HOST={{ DB_HOST }}' >> .bashrc
+      args:
+        chdir: /home/ubuntu
 
     - name: Install app using npm install
       npm:
