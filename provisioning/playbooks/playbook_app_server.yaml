@@ -55,6 +55,10 @@
         owner: ubuntu
         group: ubuntu
 
+    - name: Print DB_HOST variable
+      debug:
+        msg: "DB_HOST is {{ DB_HOST }}"
+
           # This block will set the DB_HOST
     - name: set db host as global variable
       environment: "{{ DB_HOST }}"
@@ -63,7 +67,7 @@
          sed -i '/export DB_HOST=/d' .bashrc
          printf '\nexport DB_HOST={{ DB_HOST }}' >> .bashrc
       args:
-         chdir: /home/ubuntu
+          chdir: /home/ubuntu
 
     - name: Install app using npm install
       npm:
