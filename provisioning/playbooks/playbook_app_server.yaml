@@ -85,18 +85,18 @@
       shell: |
         pm2 start app.js --update-env
       args:
-        chdir: {{ app_dir }}
+        chdir: "{{ app_dir }}"
       become_user: root
 
     - name: Seed the database
       shell:
         cmd: nodejs seeds/seed.js
-        chdir: {{ app_dir }}
+        chdir: "{{ app_dir }}"
       become_user: root
 
     - name: Restart the app to force POSTS to work
       shell:
         cmd: pm2 restart app --update-env
-        chdir: {{ app_dir }}
+        chdir: "{{ app_dir }}"
       become_user: root
 
