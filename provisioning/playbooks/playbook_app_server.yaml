@@ -11,7 +11,6 @@
 
   # give root permissions
   become: yes
-  become_user: root
 
   tasks:
     - name: Update and upgrade installation
@@ -79,7 +78,7 @@
       command: "pm2 delete app"
       ignore_errors: True
           # this become is needed apparently
-          #       become_user: root
+      become_user: root
 
     - name: Start the app in pm2
       # can change this to the `shell` module
@@ -89,10 +88,10 @@
         chdir: "{{ app_dir }}"
       environment:
         DB_HOST: "{{ DB_HOST }}"
-          #       become_user: root
+      become_user: root
 
     - name: Seed the database
       shell:
         cmd: nodejs seeds/seed.js
         chdir: "{{ app_dir }}"
-          #       become_user: root
+      become_user: root
