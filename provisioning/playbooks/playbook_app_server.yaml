@@ -86,6 +86,8 @@
         pm2 start app.js --update-env
       args:
         chdir: "{{ app_dir }}"
+      environment:
+        DB_HOST: "{{ DB_HOST }}"
       become_user: root
 
     - name: Seed the database
@@ -94,11 +96,11 @@
         chdir: "{{ app_dir }}"
       become_user: root
 
-    - name: Restart the app to force POSTS to work
-      shell:
-        cmd: pm2 restart app --update-env
-        chdir: "{{ app_dir }}"
-      environment:
-        DB_HOST: "{{ DB_HOST }}"
-      become_user: root
-
+        #     - name: Restart the app to force POSTS to work
+        #       shell:
+        #         cmd: pm2 restart app --update-env
+        #         chdir: "{{ app_dir }}"
+        #       environment:
+        #         DB_HOST: "{{ DB_HOST }}"
+        #       become_user: root
+        #
