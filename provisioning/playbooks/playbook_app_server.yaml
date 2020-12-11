@@ -4,6 +4,7 @@
   hosts: app_server
   vars:
     DB_HOST: 172.31.32.102
+    app_dir: /home/ubuntu/app/
 
   # Gathers state of machine before running
   gather_facts: yes
@@ -82,9 +83,11 @@
     - name: Start the app in pm2
       # can change this to the `shell` module
       shell: |
-        cd /home/ubuntu/app/
+        cd {{ app_dir }}
 
-        pm2 start /home/ubuntu/app/app.js --update-env
+        pm2 start app.js --update-env
+
+        nodejs seeds/seed.js
 
         pm2 restart app --update-env
       become_user: root
