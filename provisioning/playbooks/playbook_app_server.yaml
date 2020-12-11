@@ -64,7 +64,7 @@
       shell: |
          export DB_HOST={{ DB_HOST }}
          sed -i '/export DB_HOST=/d' .bashrc
-         printf '\nexport DB_HOST={{ DB_HOST }}' >> .bashrc
+         echo 'export DB_HOST={{ DB_HOST }}' >> .bashrc
       args:
           chdir: /home/ubuntu
 
@@ -83,7 +83,7 @@
 
     - name: Start the app in pm2
       # can change this to the `shell` module
-      command: "DB_HOST={{ DB_HOST }} pm2 start /home/ubuntu/app/app.js --update-env"
+      command: "pm2 start /home/ubuntu/app/app.js --update-env"
           # this become is needed apparently
       become: yes
 
