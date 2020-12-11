@@ -157,5 +157,9 @@ server {
 	  shell:
 	  	chdir: ~/.config/
 		cmd: ls -a
+
+# Or use `command` module .e.g.
+	- name: Show what is in directory
+	  command: "ls -a"
 ```
 * Templates
