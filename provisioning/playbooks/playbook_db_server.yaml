@@ -1,6 +1,6 @@
 ---
 
-- name: setting up the mongodb instance
+- name: Setting up the mongodb instance
   hosts: db_server
 
   # gathers state of machine before running
@@ -17,15 +17,17 @@
         cache_valid_time: 3600
 
     - name: Add Mongodb to the repository
+      # can use get_uri  here
       shell: |
         wget -qO - https://www.mongodb.org/static/pgp/server-3.2.asc | sudo apt-key add -
         echo "deb http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.2 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.2.list
+      warn: false
       notify: just_update
 
     - name: install version of mongodb in the ubuntu default repositories
       apt:
         pkg:
-          - mongodb-org
+          - mongodb
         state: present
 
     - name: change mongodb to listen on all ports
@@ -37,6 +39,7 @@
   - name: just_update
     apt:
       update_cache: yes
+      cache_valid_time: 3600
 
   - name: restart_db
     service:
