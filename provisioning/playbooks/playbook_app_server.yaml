@@ -65,7 +65,6 @@
          export DB_HOST={{ DB_HOST }}
          sed -i '/export DB_HOST=/d' .bashrc
          echo 'export DB_HOST={{ DB_HOST }}' >> .bashrc
-         source .bashrc
       args:
           chdir: /root/
 
