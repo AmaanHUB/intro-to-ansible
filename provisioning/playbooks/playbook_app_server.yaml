@@ -65,25 +65,26 @@
          export DB_HOST={{ DB_HOST }}
          sed -i '/export DB_HOST=/d' .bashrc
          echo 'export DB_HOST={{ DB_HOST }}' >> .bashrc
+         source .bashrc
       args:
-          chdir: /home/ubuntu
+          chdir: /root/
 
     - name: Install app using npm install
       npm:
         path: /home/ubuntu/app/
           # this become is needed apparently
-      become_user: ubuntu
+      become: yes
 
     - name: Delete existing pm2 service
       # can change this to the `shell` module
       command: "pm2 delete app"
       ignore_errors: True
           # this become is needed apparently
-      become_user: ubuntu
+      become: yes
 
     - name: Start the app in pm2
       # can change this to the `shell` module
       command: "pm2 start /home/ubuntu/app/app.js --update-env"
           # this become is needed apparently
-      become_user: ubuntu
+      become: yes
 
