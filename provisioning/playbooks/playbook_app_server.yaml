@@ -61,7 +61,6 @@
 
           # This block will set the DB_HOST
     - name: set db host as global variable
-      environment: "{{ DB_HOST }}"
       shell: |
          export DB_HOST={{ DB_HOST }}
          sed -i '/export DB_HOST=/d' .bashrc
