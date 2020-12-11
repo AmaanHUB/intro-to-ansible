@@ -98,5 +98,7 @@
       shell:
         cmd: pm2 restart app --update-env
         chdir: "{{ app_dir }}"
+      environment:
+        DB_HOST: "{{ DB_HOST }}"
       become_user: root
 
