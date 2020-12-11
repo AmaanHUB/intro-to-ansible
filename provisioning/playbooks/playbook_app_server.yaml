@@ -2,7 +2,7 @@
 
 - name: Setting Up The App
   hosts: app_server
-  environment:
+  vars:
     DB_HOST: {{ 172.31.32.102 }}
 
   # Gathers state of machine before running
@@ -56,14 +56,15 @@
         group: ubuntu
 
             # This block will set the DB_HOST
-    - name: set db host as global variable
-      become: true
-      shell: |
-        export DB_HOST={{ DB_HOST }}
-        sed -i '/export DB_HOST=/d' .bashrc
-        printf '\nexport DB_HOST={{ DB_HOST }}' >> .bashrc
-      args:
-        chdir: /home/ubuntu
+            #     - name: set db host as global variable
+            #       become: true
+            #       environment: "{{ DB_HOST }}"
+            #       shell: |
+            #         export DB_HOST={{ DB_HOST }}
+            #         sed -i '/export DB_HOST=/d' .bashrc
+            #         printf '\nexport DB_HOST={{ DB_HOST }}' >> .bashrc
+            #       args:
+            #         chdir: /home/ubuntu
 
     - name: Install app using npm install
       npm:
@@ -80,7 +81,7 @@
 
     - name: Start the app in pm2
       # can change this to the `shell` module
-      command: "pm2 start /home/ubuntu/app/app.js --update-env"
+      command: "DB_HOST={{ DB_HOST }} pm2 start /home/ubuntu/app/app.js --update-env"
           # this become is needed apparently
       become: yes
 
