@@ -16,19 +16,22 @@
         update_cache: yes
         cache_valid_time: 3600
 
-    - name: Add Mongodb to the repository
-      # can use get_uri  here
+    - name: Add the Mongodb apt-key
+      apt_key:
+        url: https://www.mongodb.org/static/pgp/server-3.2.asc
+        state: present
+
+    - name: Add Mongodb to the sources list
       shell: |
-        wget -qO - https://www.mongodb.org/static/pgp/server-3.2.asc | sudo apt-key add -
         echo "deb http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.2 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.2.list
-      warn: false
       notify: just_update
+
 
     - name: install version of mongodb in the ubuntu default repositories
       apt:
         pkg:
           - mongodb
-        state: present
+        state: latest
 
     - name: change mongodb to listen on all ports
       # could use the `replace` module here instead
@@ -43,5 +46,5 @@
 
   - name: restart_db
     service:
-       name: mongodb
+       name: mongod
        state: restarted
