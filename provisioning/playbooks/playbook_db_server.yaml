@@ -16,11 +16,16 @@
         update_cache: yes
         cache_valid_time: 3600
 
+    - name: Add Mongodb to the repository
+      shell: |
+        wget -qO - https://www.mongodb.org/static/pgp/server-3.2.asc | sudo apt-key add -
+        echo "deb http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.2 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.2.list
+      notify: just_update
 
     - name: install version of mongodb in the ubuntu default repositories
       apt:
         pkg:
-          mongodb-org
+          - mongodb-org
         state: present
 
     - name: change mongodb to listen on all ports
@@ -28,13 +33,12 @@
       shell: sudo sed -i 's/127.0.0.1/0.0.0.0/' /etc/mongod.conf
       notify: restart_db
 
-    - name: Restart mongodb manually
-      service:
-        name: mongodb
-        state: restarted
+  handlers:
+  - name: just_update
+    apt:
+      update_cache: yes
 
-          #   handlers:
-          #     - name: restart_db
-          #       service:
-          #         name: mongodb
-          #         state: restarted
+  - name: restart_db
+    service:
+       name: mongodb
+       state: restarted
