@@ -1,0 +1,7 @@
+---
+
+- name: Running db_server playbook
+  import_playbook: playbook_db_server.yaml
+
+- name: Running the app_server playbook
+  import_playbook: playbook_app_server.yaml
