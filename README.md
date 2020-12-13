@@ -163,5 +163,23 @@ server {
 	  command: "ls -a"
 ```
 * Templates
+	* Dynamically generate text data based upon jinja2 templates.
+	* Uses variables
+	* Uses `{{ word }}` and `{{% word % }}` within the template file
+	* Deployed using the **template** module
 
-//TODO FIX TEMPLATES AND ENVIRONMENT VARIABLES (AND VARIABLES) SECTION, has gone missing
+* Variables
+	* Declared with `{{ name }}`
+		* Can be called with `register` too (later on)
+```yaml
+- hosts: app
+  vars:
+  	cat_name: hewwo
+
+- name:
+  debug:
+	msg: "cat_name is {{ cat_name }}"
+```
+
+* **REMEMBER TO ADD THE IPS OF THE ANSIBLE HOSTS WITHIN THE `/etc/ansible/hosts` file (default) before running**
+## See provisioning/ Folder For How To Use
