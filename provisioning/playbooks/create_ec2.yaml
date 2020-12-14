@@ -27,7 +27,7 @@
 
     - name: Python dependencies
       pip:
-        pkg:
+        name:
           - boto
           - boto3
           - nose
