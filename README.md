@@ -183,3 +183,30 @@ server {
 
 * **REMEMBER TO ADD THE IPS OF THE ANSIBLE HOSTS WITHIN THE `/etc/ansible/hosts` file (default) before running**
 ## See provisioning/ Folder For How To Use
+
+## API Keys And Authentication Security
+
+* Secrets
+* Environment variables
+* Services like Ansible
+
+
+What to consider?:
+* Is it protected from going online? (.gitignore)
+* Is it segregated from my code that goes online? (environment variables)
+* Is it encrypted? (services like ansible)
+* How hard is it to share with colleges?
+
+## Ansible Vault
+
+* Creating the vault file (can be in its own directory)
+```
+ansible-vault create file_name.yaml
+
+> add the password and reenter it
+```
+* Within this file, is a standard yaml format .e.g.
+```yaml
+key_name: lagrf
+other_key_name: lk;jsfdlkjhsf
+```
