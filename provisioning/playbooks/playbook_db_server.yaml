@@ -32,10 +32,12 @@
       apt:
         name: mongodb-org=3.2.20
         state: present
+        force: yes
 
     - name: change mongodb to listen on all ports
       # could use the `replace` module here instead
-      shell: sudo sed -i 's/127.0.0.1/0.0.0.0/' /etc/mongod.conf
+      shell: sed -i 's/127.0.0.1/0.0.0.0/' /etc/mongod.conf
+      warn: false
       notify: restart_db
 
   handlers:
