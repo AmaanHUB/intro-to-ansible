@@ -1,0 +1,44 @@
+---
+
+- name: Create EC2 Instances
+  hosts: local
+  connection: local
+  gather_facts: true
+  become: true
+
+  vars:
+    key_name: eng74-amaan-aws
+    region: eu-west-1
+    image: ami-0dc8d444ee2a42d8a
+    id: "Amaan Ansible EC2 Lesson"
+    # can use a list like ["something", "something"] etc
+    group_id: sg-018db571662d9494d
+    subnet_id: subnet-00ac052b1e40c0164
+    ansible_python_interpreter: /usr/bin/python3
+
+  tasks:
+    - name: Get instance facts
+      ec2_instance_facts:
+        aws_access_key: "{{ aws_access_key }}"
+        aws_secret_key: "{{ aws_secret_key }}"
+        region: "{{ region }}"
+      register: result
+
+    - name: Create EC2 instance
+      ec2:
+        aws_access_key: "{{ aws_access_key }}"
+        aws_secret_key: "{{ aws_secret_key }}"
+        assign_public_ip: true
+        key_name: "{{ key_name }}"
+        id: "{{ id }}"
+        vpc_subnet_id: "{{ subnet_id }}"
+        group_id: "{{ group_id }}"
+        image: "{{ image }}"
+        instance_type: t2.micro
+        region: "{{ region }}"
+        wait: true
+        count: 1
+        instance_tags:
+          Name: eng74_amaan_ansible_ec2
+
+  tags: ['never', 'create_ec2']
