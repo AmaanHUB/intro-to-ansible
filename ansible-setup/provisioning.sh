@@ -24,8 +24,8 @@ sudo apt install python3-pip -y
 # Install python packages, AWS CLI, boto (as dependency for)
 pip3 install boto boto3
 # installs latest version of aws cli
-curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-unzip awscliv2.zip
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && \
+unzip awscliv2.zip && \
 sudo ./aws/install
 
 # set python3 as default
