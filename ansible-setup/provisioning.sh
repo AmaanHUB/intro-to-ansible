@@ -6,20 +6,18 @@ else
 fi
 source ~/.bashrc
 
+ubuntu_packages=(ansible python3 python3-pip unzip)
 # Change hostname to make more readable
-sudo -i
-hostnamectl set-hostname ansible-controller
-exit
+sudo hostnamectl set-hostname ansible-controller
 # neee something to reset the terminal in a way to show the new hostname here maybe
 
-# Install Ansible
+# Prepare installing ansible and others
 sudo apt update -y
 sudo apt install software-properties-common -y
 sudo apt-add-repository --yes --update ppa:ansible/ansible
-sudo apt install ansible -y
 
-# Install Python And Dependencies
-sudo apt install python3-pip -y
+# Install
+sudo apt install $(echo ${ubuntu_packages[*]}) -y
 
 # Install python packages, AWS CLI, boto (as dependency for)
 pip3 install boto boto3
